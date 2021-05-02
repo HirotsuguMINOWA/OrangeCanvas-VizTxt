@@ -8,6 +8,7 @@
 from pathlib import Path
 from typing import Optional, Tuple  # wappingするdatetimeの後におくべき
 
+import pandas as pd
 from Orange.data import (
     ContinuousVariable,
     Domain,
@@ -121,9 +122,10 @@ def morphological_analysis5(col_ja: Corpus) -> Corpus:
             # ret[i] = " ".join([r.surface for r in t.tokenize(row)])  # Win用にutf8化している
             # ret.append([" ".join([r.surface for r in t.tokenize(row)])])
             # ret.append(" ".join([r.surface for r in t.tokenize(col)]))
-            ret[i_c+1][i_r] = " ".join(r.surface for r in t.tokenize(col))
+            ret[i_c + 1][i_r] = " ".join(r.surface for r in t.tokenize(col))
             # tmp_table[i_c, i_r] = " ".join([r.surface for r in t.tokenize(row)])
     return col_ja
+
 
 def morphological_analysis6(col_ja: Corpus) -> Table:
     """
@@ -156,6 +158,74 @@ def morphological_analysis6(col_ja: Corpus) -> Table:
         col_ja.metas
 
     return col_ja
+
+
+def morphological_analysis7(col_ja: Corpus) -> Corpus:
+    """
+    pd.DFを用いて、src corpusへ連結する
+    :param col_ja:
+    :return:
+    """
+
+    # name_col_out = "tokenized"
+    # n_row = len(col_ja)
+    # tmp_domain = Domain([], metas=[[StringVariable(name_col_out)] * len(col_ja.metas)])
+    # tmp_table = Table.from_domain(tmp_domain, n_rows=n_row)
+    # ret = list()
+
+    print("[Debug] Domain:", col_ja.domain)
+    print("[Debug] Attributes:", col_ja.attributes)
+    #
+    # Create DF
+    #
+    idexs = [f"_o{x}" for x in col_ja.ids]
+    cols = [f"{x}_形態素" for x in col_ja.domain.metas]
+    # pd.DataFrame(np.arange(12).reshape(3, 4),
+
+    #
+    # Enter analysis result
+    ret = list()
+    for i_r, row in enumerate(col_ja.metas):
+        ret_s = list()
+        for i_c, col in enumerate(row):
+            ret_s.append(" ".join(r.surface for r in t.tokenize(col)))
+        ret.append(ret_s)
+    ret2=[*zip(*ret)]
+    res3=col_ja
+    for i,col in enumerate(ret2):
+        res3 = res3.add_column(StringVariable(name=f"{i}_形態素"), data=col, to_metas=None)
+    # ret = pd.DataFrame(ret,
+    #                    columns=cols,
+    #                    index=idexs)
+    #
+    # 下記はサンプルソースコードを連結
+    #
+
+    # >> [Date, Time, DateTime, Value1, Class]と表示されます。
+    # TODO: 1列目は年月日、2列目は時間のみ、3列目は1列目+2列目の各行の合算です。これを読み込み、変換する事
+    # result = convert(source=in_corpus)  # FIXME: 手動で変換しているので直すべし
+    # p: OrangeDataFrame = col_ja.metas_df
+    # print("Pandas", p)
+    # df2 = pd.DataFrame({'A': ['A4', 'A5', 'A6', 'A6'],
+    #                     'C': ['C4', 'C5', 'C6', 'C6']},
+    #                    # index=["_o4","_o5","_o6","_o7"]) # row名を指定するのが期待どおりcombineされるコツ。
+    #                    index=[f"_o{x}" for x in col_ja.ids])  # row名を指定するのが期待どおりcombineされるコツ。
+    # # res = pd.concat(p, df2)
+    # res=p.(other=df2)
+    #
+    # Combine
+    # res = col_ja.metas_df.combine_first(ret)
+    # res.to_csv("result.csv")
+    # print(res)
+    # if res is None:
+    #     raise Exception("result is None")
+    # print(f"[Info] src:\n", col_ja)
+    # print(f"[Info] type of res:\n", type(res))
+    # print("[Info] Result in main:\n", res)
+    #
+    # print("res2\n", res2)
+    return res3
+
 
 # ##################### 以下は、不要
 # class Unit(Enum):
@@ -264,7 +334,7 @@ def convert(source: Corpus, col_idx: Optional[int] = None) -> Optional[Table]:
     # ret = Corpus.from_table(domain=tmp_domain, source=t_convd)
     # ret = Corpus.add_column()
     # return morphological_analysis5(source)
-    return morphological_analysis4(source)
+    return morphological_analysis7(source)
 
 
 if __name__ == '__main__':
