@@ -8,7 +8,6 @@
 from pathlib import Path
 from typing import Optional, Tuple  # wappingするdatetimeの後におくべき
 
-import pandas as pd
 from Orange.data import (
     ContinuousVariable,
     Domain,
@@ -160,70 +159,27 @@ def morphological_analysis6(col_ja: Corpus) -> Table:
     return col_ja
 
 
-def morphological_analysis7(col_ja: Corpus) -> Corpus:
+def morphological_analysis7(col_ja: Corpus, tail: str = "_MA") -> Corpus:
     """
     pd.DFを用いて、src corpusへ連結する
     :param col_ja:
+    :param tail: 形態素解析(Morphological Analysis)の接尾語
     :return:
     """
-
-    # name_col_out = "tokenized"
-    # n_row = len(col_ja)
-    # tmp_domain = Domain([], metas=[[StringVariable(name_col_out)] * len(col_ja.metas)])
-    # tmp_table = Table.from_domain(tmp_domain, n_rows=n_row)
-    # ret = list()
-
-    print("[Debug] Domain:", col_ja.domain)
-    print("[Debug] Attributes:", col_ja.attributes)
-    #
-    # Create DF
-    #
-    idexs = [f"_o{x}" for x in col_ja.ids]
-    cols = [f"{x}_形態素" for x in col_ja.domain.metas]
-    # pd.DataFrame(np.arange(12).reshape(3, 4),
-
     #
     # Enter analysis result
     ret = list()
     for i_r, row in enumerate(col_ja.metas):
-        ret_s = list()
-        for i_c, col in enumerate(row):
-            ret_s.append(" ".join(r.surface for r in t.tokenize(col)))
-        ret.append(ret_s)
-    ret2=[*zip(*ret)]
-    res3=col_ja
-    for i,col in enumerate(ret2):
-        res3 = res3.add_column(StringVariable(name=f"{i}_形態素"), data=col, to_metas=None)
-    # ret = pd.DataFrame(ret,
-    #                    columns=cols,
-    #                    index=idexs)
-    #
-    # 下記はサンプルソースコードを連結
-    #
-
-    # >> [Date, Time, DateTime, Value1, Class]と表示されます。
-    # TODO: 1列目は年月日、2列目は時間のみ、3列目は1列目+2列目の各行の合算です。これを読み込み、変換する事
-    # result = convert(source=in_corpus)  # FIXME: 手動で変換しているので直すべし
-    # p: OrangeDataFrame = col_ja.metas_df
-    # print("Pandas", p)
-    # df2 = pd.DataFrame({'A': ['A4', 'A5', 'A6', 'A6'],
-    #                     'C': ['C4', 'C5', 'C6', 'C6']},
-    #                    # index=["_o4","_o5","_o6","_o7"]) # row名を指定するのが期待どおりcombineされるコツ。
-    #                    index=[f"_o{x}" for x in col_ja.ids])  # row名を指定するのが期待どおりcombineされるコツ。
-    # # res = pd.concat(p, df2)
-    # res=p.(other=df2)
-    #
-    # Combine
-    # res = col_ja.metas_df.combine_first(ret)
-    # res.to_csv("result.csv")
-    # print(res)
-    # if res is None:
-    #     raise Exception("result is None")
-    # print(f"[Info] src:\n", col_ja)
-    # print(f"[Info] type of res:\n", type(res))
-    # print("[Info] Result in main:\n", res)
-    #
-    # print("res2\n", res2)
+        #     ret_s = list()
+        #     for i_c, col in enumerate(row):
+        #         ret_s.append(" ".join(r.surface for r in t.tokenize(col)))
+        ret.append([" ".join(r.surface for r in t.tokenize(c)) for c in row])
+        # ret.append(ret_s)
+    # ret = [" ".join(r.surface for r in t.tokenize(c)) for c in row for row in col_ja.metas]
+    ret2 = [*zip(*ret)]  # 行列を転置
+    res3 = col_ja
+    for n, col in zip(col_ja.domain.metas, ret2):
+        res3 = res3.add_column(StringVariable(name=f"{n}{tail}"), data=col, to_metas=None)
     return res3
 
 
