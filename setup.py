@@ -20,11 +20,11 @@ LONG_DESCRIPTION = open(path.join(path.dirname(__file__), 'README.md'), encoding
 
 LICENSE = "BSD"
 
-KEYWORDS = (
+KEYWORDS = [
     # [PyPi](https://pypi.python.org) packages with keyword "orange3 add-on"
     # can be installed using the Orange Add-on Manager
     'orange3 add-on',
-)
+]
 
 PACKAGES = find_packages()
 
@@ -40,7 +40,7 @@ DATA_FILES = [
 INSTALL_REQUIRES = [
     'Orange3',
     'janome',
-    'numpy',
+    'numpy', # FIXME: 不要？
     'orange3-text',
     'python-Levenshtein'
 ]
