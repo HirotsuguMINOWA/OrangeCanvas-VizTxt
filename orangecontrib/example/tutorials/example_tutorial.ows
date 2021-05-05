@@ -68,7 +68,7 @@ lIWUaESMCENhdGVnb3J5lF2UKIwFYWR1bHSUjAhjaGlsZHJlbpRlhpSFlHViZXUu
 		<properties node_id="1" format="literal">{'autocommit': True, 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x01A\x00\x00\x01z\x00\x00\x05z\x00\x00\x03\xa6\x00\x00\x01A\x00\x00\x01\x90\x00\x00\x05z\x00\x00\x03\xa6\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'storedsettings': {'name': '', 'preprocessors': [('preprocess.transform', {'methods': [0, 1]}), ('preprocess.tokenize', {'method': 3, 'pattern': '\\w+'}), ('preprocess.normalize', {'method': 0, 'snowball_language': 'English', 'udpipe_language': 'English', 'udpipe_tokenizer': False}), ('preprocess.filter', {'language': 'English', 'lx_list': [], 'lx_path': None, 'methods': [0], 'n_tokens': 131, 'pattern': '\\.|,|:|;|!|\\?|\\(|\\)|\\||\\+|\'|"|‘|’|“|”|\'|\\’|…|\\-|–|—|\\$|&amp;|\\*|&gt;|&lt;|\\/|\\[|\\]', 'rel_end': 0.9, 'rel_start': 0.1, 'sw_list': [], 'sw_path': None})]}, '__version__': 3}</properties>
 		<properties node_id="2" format="literal">{'autocommit': True, 'controlAreaVisible': True, 'hidden_cb': True, 'normalization': '(None)', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x03\x00\x00\x00\x01\x93\x00\x00\x04h\x00\x00\x02k\x00\x00\x03\x00\x00\x00\x01\xa9\x00\x00\x04h\x00\x00\x02k\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'wglobal': 'IDF', 'wlocal': 'Count', '__version__': 1}</properties>
 		<properties node_id="3" format="literal">{'C_index': 61, 'auto_apply': True, 'class_weight': False, 'controlAreaVisible': True, 'learner_name': '', 'penalty_type': 1, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xb2\x00\x00\x01,\x00\x00\x03\xc2\x00\x00\x02L\x00\x00\x02\xb2\x00\x00\x01B\x00\x00\x03\xc2\x00\x00\x02L\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', '__version__': 1}</properties>
-		<properties node_id="4" format="pickle">gASVfAIAAAAAAAB9lCiMFmNvbnRfZmVhdHVyZV9kaW1faW5kZXiUSwCMEmNvbnRyb2xBcmVhVmlz
+		<properties node_id="4" format="pickle">gASVxQIAAAAAAAB9lCiMFmNvbnRfZmVhdHVyZV9kaW1faW5kZXiUSwCMEmNvbnRyb2xBcmVhVmlz
 aWJsZZSIjA1kaXNwbGF5X2luZGV4lEsBjAxuX2F0dHJpYnV0ZXOUSwqMF25vcm1hbGl6ZV9wcm9i
 YWJpbGl0aWVzlImME3NhdmVkV2lkZ2V0R2VvbWV0cnmUQzIB2dDLAAIAAAAAAcwAAAEYAAAEtwAA
 AzkAAAHMAAABLgAABLcAAAM5AAAAAAAAAAAHgJSMBXNjYWxllEsBjApzb3J0X2luZGV4lIwjT3Jh
@@ -78,8 +78,9 @@ Q29udGV4dJSTlCmBlH2UKIwEdGltZZRHQdenPPgy0YWMBnZhbHVlc5R9lCiMEnRhcmdldF9jbGFz
 c19pbmRleJRLAGgPSwF1jAdjbGFzc2VzlIwMQW5pbWFsIFRhbGVzlIwOVGFsZXMgb2YgTWFnaWOU
 hpR1YmgUKYGUfZQoaBh9lChoGksAaA9LAXVoG051YmgUKYGUfZQoaBh9lChoGksAaA9LAXVoG051
 YmgUKYGUfZQoaBh9lCiMEnRhcmdldF9jbGFzc19pbmRleJRLAGgPSwF1aBtOdWJoFCmBlH2UKGgY
-fZQoaChLAGgPSwF1aBtOdWJoFCmBlH2UKGgXR0HXpzFHTmm6aBh9lCiMEnRhcmdldF9jbGFzc19p
-bmRleJRLAGgPSwF1aBtOdWJldS4=
+fZQoaChLAGgPSwF1aBtOdWJoFCmBlH2UKGgYfZQojBJ0YXJnZXRfY2xhc3NfaW5kZXiUSwBoD0sB
+dWgbTnViaBQpgZR9lChoGH2UKGgvSwBoD0sBdWgbTnViaBQpgZR9lChoF0dB16cxR05pumgYfZQo
+jBJ0YXJnZXRfY2xhc3NfaW5kZXiUSwBoD0sBdWgbTnViZXUu
 </properties>
 		<properties node_id="5" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xca\x00\x00\x00X\x00\x00\x06O\x00\x00\x02\x8a\x00\x00\x02\xca\x00\x00\x00n\x00\x00\x06O\x00\x00\x02\x8a\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
 		<properties node_id="6" format="literal">{'auto_apply': False, 'binary_trees': True, 'controlAreaVisible': True, 'learner_name': '', 'limit_depth': True, 'limit_majority': True, 'limit_min_internal': True, 'limit_min_leaf': True, 'max_depth': 100, 'min_internal': 5, 'min_leaf': 2, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xf8\x00\x00\x01G\x00\x00\x04T\x00\x00\x02\xdb\x00\x00\x02\xf8\x00\x00\x01]\x00\x00\x04T\x00\x00\x02\xdb\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80', 'sufficient_majority': 95, '__version__': 1}</properties>
