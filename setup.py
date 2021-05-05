@@ -40,9 +40,9 @@ DATA_FILES = [
 INSTALL_REQUIRES = [
     'Orange3',
     'janome',
-    'numpy', # FIXME: 不要？
+    # 'numpy',  # FIXME: 不要？
     'orange3-text',
-    'python-Levenshtein'
+    # 'python-Levenshtein'
 ]
 
 ENTRY_POINTS = {
