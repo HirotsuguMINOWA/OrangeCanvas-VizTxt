@@ -42,7 +42,7 @@ INSTALL_REQUIRES = [
     'janome',
     # 'numpy',  # FIXME: 不要？
     'orange3-text',
-    # 'python-Levenshtein'
+    'python-Levenshtein'
 ]
 
 ENTRY_POINTS = {
