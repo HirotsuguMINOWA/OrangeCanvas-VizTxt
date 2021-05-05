@@ -4,9 +4,11 @@ from Orange.widgets.utils.signals import Input, Output
 # from Orange.widgets.widget import OWWidget
 from Orange.widgets.widget import OWWidget
 
+from orangecontrib.example.widgets.morphologicalizer import convert
+
+
 # from conv2elapsed_time import convert  # not found
 # from orangecontrib.example.widgets.conv2elapsed_time import convert
-from orangecontrib.example.widgets.morphologicalizer import convert
 
 
 class MyWidget(OWWidget):
@@ -98,7 +100,7 @@ class MyWidget(OWWidget):
             #     print(f"res:{self.A[i, names[0].name]}")
             #     tmp_table[i, col_out] = self.A[i, names[0].name] + self.A[i, names[1].name]
             # FIXME: DateTime型がなければエラーとなるかも、要修正。
-            tmp_table:Corpus = convert(self.A, col_idx=0)  # FIXME: 最初のテキストを解析
+            tmp_table = convert(self.A, col_idx=0)  # type: orangecontrib.text.Corpus # FIXME: 最初のテキストを解析
             # 出力に接続されたWidgetへ結果を送信するため、Outputへ上記生成したTableを転送する
             self.Outputs.out_mine.send(tmp_table)
 
