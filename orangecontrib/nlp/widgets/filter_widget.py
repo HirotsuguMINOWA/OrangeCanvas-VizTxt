@@ -57,6 +57,8 @@ def filter_regexp(in_corpus: Corpus, pattern: str) -> Corpus:
             X=tmp_X,
             Y=tmp_Y,
             metas=tmp_metas)
+    else:
+        ret_corpus = in_corpus
     #
     # print("[Info] Result in main:\n", ret_corpus)
     return ret_corpus
@@ -99,7 +101,7 @@ class FilterWidget(OWWidget):
         self.key_edit = gui.lineEdit(self, self, 'key_input', controlWidth=400)
         form.addRow('Regexp for filtering:', self.key_edit)
         self.controlArea.layout().addLayout(form)
-        self.submit_button = gui.button(self.controlArea, self, "OK", self.accept)
+        self.submit_button = gui.button(self.controlArea, self, "OK", self.commit)
 
     class Inputs:
         """
@@ -109,6 +111,7 @@ class FilterWidget(OWWidget):
 
     class Outputs:
         out_mine = Output("Data", Table)
+
 
     @Inputs.input_data
     def set_A(self, a):
