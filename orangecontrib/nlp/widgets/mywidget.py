@@ -6,7 +6,7 @@ from Orange.widgets.widget import OWWidget
 
 from orangecontrib.example.widgets.morphologicalizer import convert
 
-
+#TODO: Orange3-Textのインストールされてないときのチェックするようにしよう
 # from conv2elapsed_time import convert  # not found
 # from orangecontrib.example.widgets.conv2elapsed_time import convert
 
@@ -14,7 +14,7 @@ from orangecontrib.example.widgets.morphologicalizer import convert
 class MyWidget(OWWidget):
     # Widget needs a name, or it is considered an abstract widget
     # and not shown in the menu.
-    name = "MorphorerJPN"  # FIXME: 名前修正しよう
+    name = "JA Morphological Parser"  # FIXME: 名前修正しよう
     icon = "icons/mywidget.svg"  # FIXME: 要修正, 著作権問題が気になるため
     want_main_area = False
 
