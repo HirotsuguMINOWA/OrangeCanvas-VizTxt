@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="Word-Counter-JA" description="">
+	<nodes>
+		<node id="0" name="Text Files" qualified_name="_textable.widgets.OWTextableTextFiles.OWTextableTextFiles" project_name="Orange3-Textable" version="" title="Text Files" position="(-449.0, 157.0)" />
+		<node id="1" name="Interchange" qualified_name="_textable.widgets.OWTextableInterchange.OWTextableInterchange" project_name="Orange3-Textable" version="" title="Interchange" position="(-184.0, 154.0)" />
+		<node id="2" name="Segment" qualified_name="_textable.widgets.OWTextableSegment.OWTextableSegment" project_name="Orange3-Textable" version="" title="Segment" position="(-292.0, 154.0)" />
+		<node id="3" name="filter_widget" qualified_name="orangecontrib.nlp.widgets.filter_widget.FilterWidget" project_name="NLP4OC" version="" title="filter_widget" position="(-96.0, 155.0)" />
+		<node id="4" name="Corpus Viewer" qualified_name="orangecontrib.text.widgets.owcorpusviewer.OWCorpusViewer" project_name="Orange3-Text" version="" title="Corpus Viewer" position="(-1.0, 158.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="0" sink_node_id="2" source_channel="Text data" sink_channel="Segmentation" enabled="true" />
+		<link id="1" source_node_id="2" sink_node_id="1" source_channel="Segmented data" sink_channel="Textable segmentation" enabled="true" />
+		<link id="2" source_node_id="1" sink_node_id="3" source_channel="Text Mining corpus" sink_channel="Data" enabled="true" />
+		<link id="3" source_node_id="3" sink_node_id="4" source_channel="Data" sink_channel="Corpus" enabled="true" />
+	</links>
+	<annotations />
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="literal">{'autoNumber': False, 'autoNumberKey': 'num', 'autoSend': True, 'controlAreaVisible': True, 'displayAdvancedSettings': True, 'encoding': '(auto-detect)', 'file': '/Users/hirots-m/pCloud Drive/Documents/Task0-Necessary/P-JPN-TextMiningTool/01_FIT2021/OC-dat-FIT2021/kokoro.txt', 'files': [('/Users/hirots-m/pCloud Drive/Documents/Task0-Necessary/P-JPN-TextMiningTool/01_FIT2021/OC-dat-FIT2021/kokoro.txt', '(auto-detect)', '', '')], 'importFilenames': True, 'importFilenamesKey': 'filename', 'lastLocation': '/Users/hirots-m/pCloud Drive/Documents/Task0-Necessary/P-JPN-TextMiningTool/01_FIT2021/OC-dat-FIT2021', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02\x80\x00\x00\x00A\x00\x00\x04\xff\x00\x00\x03\xc6\x00\x00\x02\x80\x00\x00\x00W\x00\x00\x04\xff\x00\x00\x03\xc6\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02\x80\x00\x00\x00W\x00\x00\x04\xff\x00\x00\x03\xc6', 'uuid': '79f1356a-1d3d-47f9-b5a2-7c6cff13ee19', '__version__': 1, '_TextableUtils_settings_version__': (0, 17)}</properties>
+		<properties node_id="1" format="literal">{'autoSend': True, 'controlAreaVisible': True, 'limitNumCategories': False, 'maxNumCategories': 100, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02\x80\x00\x00\x01\t\x00\x00\x04\xff\x00\x00\x02\xfe\x00\x00\x02\x80\x00\x00\x01\x1f\x00\x00\x04\xff\x00\x00\x02\xfe\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02\x80\x00\x00\x01\x1f\x00\x00\x04\xff\x00\x00\x02\xfe', 'uuid': '85e747aa-787b-4e6d-a228-3f5c7143d9fa', '__version__': 1, '_TextableUtils_settings_version__': (0, 1)}</properties>
+		<properties node_id="2" format="literal">{'autoNumber': False, 'autoNumberKey': 'num', 'autoSend': True, 'controlAreaVisible': True, 'displayAdvancedSettings': False, 'importAnnotations': True, 'lastLocation': '.', 'mergeDuplicates': False, 'mode': 'Tokenize', 'regex': '', 'regexes': [], 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02\x80\x00\x00\x01\t\x00\x00\x04\xff\x00\x00\x02\xfe\x00\x00\x02\x80\x00\x00\x01\x1f\x00\x00\x04\xff\x00\x00\x02\xfe\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02\x80\x00\x00\x01\x1f\x00\x00\x04\xff\x00\x00\x02\xfe', 'segmentType': 'Segment into lines', 'uuid': '47414c1a-9b45-4795-bae1-8725bbeff48b', '__version__': 1, '_TextableUtils_settings_version__': (0, 21)}</properties>
+		<properties node_id="3" format="literal">{'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02\xa5\x00\x00\x00\xee\x00\x00\x04\xc7\x00\x00\x02\xf7\x00\x00\x02\xa5\x00\x00\x01\x04\x00\x00\x04\xc7\x00\x00\x02\xf7\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02\xa5\x00\x00\x01\x04\x00\x00\x04\xc7\x00\x00\x02\xf7', '__version__': 1}</properties>
+		<properties node_id="4" format="pickle">gASV7AEAAAAAAAB9lCiMCmF1dG9jb21taXSUiIwSY29udHJvbEFyZWFWaXNpYmxllIiME3NhdmVk
+V2lkZ2V0R2VvbWV0cnmUQ0IB2dDLAAMAAAAAAawAAAChAAAFkwAAA18AAAGsAAAAtwAABZMAAANf
+AAAAAAAAAAAHgAAAAawAAAC3AAAFkwAAA1+UjAtzaG93X3Rva2Vuc5SJjAtfX3ZlcnNpb25fX5RL
+AYwQY29udGV4dF9zZXR0aW5nc5RdlIwVb3Jhbmdld2lkZ2V0LnNldHRpbmdzlIwHQ29udGV4dJST
+lCmBlH2UKIwGdmFsdWVzlH2UKIwQZGlzcGxheV9mZWF0dXJlc5RdlCiMCGZpbGVuYW1llEtlhpSM
+DXRleHRhYmxlX3RleHSUS2eGlGVK/f///4aUjA9kaXNwbGF5X2luZGljZXOUXZRLAWGMDXJlZ2V4
+cF9maWx0ZXKUjACUSv////+GlIwOc2VhcmNoX2luZGljZXOUXZRLAWGMEnNlbGVjdGVkX2RvY3Vt
+ZW50c5SPlCiMCkRvY3VtZW50IDOUkEr+////hpRoBksBdYwKYXR0cmlidXRlc5RoEl2UjAprb2tv
+cm8udHh0lGGGlIWUjAVtZXRhc5RoFEsDhpSFlIwKY2xhc3NfdmFyc5QpdWJhdS4=
+</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>
