@@ -29,13 +29,21 @@ def filter_regexp(in_corpus: Corpus, pattern: str) -> Corpus:
         raise Exception("文字の列がありません")
         return
     #
+    in_corpus=in_corpus.copy()
     del_candidates = []
     for i_r in range(in_corpus.metas.shape[0]):  ## Row
         for i_c in range(in_corpus.metas.shape[1]):  ## Col
-            res = re.sub(pattern, '', in_corpus.metas[i_r, i_c])
-            if res is None or res == "":
-                del_candidates.append(i_r)
-            in_corpus.metas[i_r, i_c] = res
+            try:
+                sent = in_corpus.metas[i_r, i_c]
+                res = re.sub(pattern, '', sent)
+                if res is None or res == "":
+                    del_candidates.append(i_r)
+                in_corpus.metas[i_r, i_c] = res
+            except Exception as e:
+                print(f"patn:{pattern},sent:{sent},i_r:{i_r}")
+                return None
+
+
         # 不要
         # if i_r == 2 or i_r == 11:
         #     print(f"row:{i_r} was res:{res}")
@@ -70,7 +78,7 @@ class FilterWidget(OWWidget):
     name = "filter_widget"  # FIXME: 名前修正しよう
     icon = "icons/mywidget.svg"  # FIXME: 要修正, 著作権問題が気になるため
     want_main_area = False
-    key_input = '-*-'  # lineEditと合わせて要修正
+    key_input: str = '《.*》|［.*］|[「」、。]'  # lineEditと合わせて要修正
 
     def __init__(self):  # , parent):
         """
@@ -107,11 +115,10 @@ class FilterWidget(OWWidget):
         """
         get Inputs
         """
-        input_data = Input("Data", Table, default=True)
+        input_data = Input("Data", Corpus, default=True)
 
     class Outputs:
-        out_mine = Output("Data", Table)
-
+        out_mine = Output("Data", Corpus)
 
     @Inputs.input_data
     def set_A(self, a):
