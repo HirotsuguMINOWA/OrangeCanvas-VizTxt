@@ -183,6 +183,34 @@ def morphological_analysis7(col_ja: Corpus, tail: str = "_MA") -> Corpus:
     return res3
 
 
+def morphological_analysis8(in_corpus: Corpus) -> Corpus:
+    """
+    pd.DFを用いて、src corpusへ連結する
+    :param pattern:
+    :param in_corpus:
+    :return:
+    """
+    # print("[Debug] Domain:", in_corpus.domain)
+    # print("Meta部のshape:", in_corpus.metas.shape)
+    # print("Meta部の「最初のcell」[0,0]の抽出", in_corpus.metas[0, 0])
+    in_corpus = in_corpus.copy()
+    if len(in_corpus.metas) == 0:
+        raise Exception("文字の列がありません")
+        return
+    #
+    for i_r in range(in_corpus.metas.shape[0]):  ## Row
+        n_c = in_corpus.metas.shape[1]  ## Col
+        # print(f"[Debug] n_c:{n_c}")
+        if n_c == 1:
+            in_corpus.metas[i_r] = [" ".join(r.surface for r in t.tokenize(c)) for c in in_corpus.metas[i_r]]
+        else:
+            for i_c in range(n_c):  ## Col
+                in_corpus.metas[i_r, i_c] = [" ".join(r.surface for r in t.tokenize(c)) for c in in_corpus.metas[i_r, i_c]]
+    #
+    # print("[Info] Result in main:\n", ret_corpus)
+    return in_corpus
+
+
 # ##################### 以下は、不要
 # class Unit(Enum):
 #     second = auto()
@@ -290,7 +318,7 @@ def convert(source: Corpus, col_idx: Optional[int] = None) -> Optional[Table]:
     # ret = Corpus.from_table(domain=tmp_domain, source=t_convd)
     # ret = Corpus.add_column()
     # return morphological_analysis5(source)
-    return morphological_analysis7(source)
+    return morphological_analysis8(source)
 
 
 if __name__ == '__main__':
