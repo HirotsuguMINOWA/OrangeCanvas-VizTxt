@@ -3,16 +3,15 @@ from Orange.data import Table
 from Orange.widgets.utils.signals import Input, Output
 # from Orange.widgets.widget import OWWidget
 from Orange.widgets.widget import OWWidget
+# from orangecontrib.example.widgets.morphologicalizer import convert
+from .morphologicalizer import morphological_analysis8, POS
 
-from orangecontrib.example.widgets.morphologicalizer import convert
-
-#TODO: Orange3-Textのインストールされてないときのチェックするようにしよう
-#TODO: GUI部でoutputのCorpusへ残すPOSを指定できるようにしよう
+# TODO:
+# TODO: Orange3-Textのインストールされてないときのチェックするようにしよう
+# TODO: GUI部でoutputのCorpusへ残すPOSを指定できるようにしよう
 # from conv2elapsed_time import convert  # not found
 # from orangecontrib.example.widgets.conv2elapsed_time import convert
 from orangecontrib.text import Corpus
-
-from orangecontrib.nlp.widgets.morphologicalizer import morphological_analysis8
 
 
 class MyWidget(OWWidget):
@@ -108,7 +107,7 @@ class MyWidget(OWWidget):
             if len(self.A) == 0:
                 raise Exception("文字の列がありません")
                 return
-            tmp_table = morphological_analysis8(self.A)  # type: orangecontrib.text.Corpus # FIXME: 最初のテキストを解析
+            tmp_table = morphological_analysis8(self.A, contains=[POS.noun])  # type: orangecontrib.text.Corpus # FIXME: 最初のテキストを解析
             # 出力に接続されたWidgetへ結果を送信するため、Outputへ上記生成したTableを転送する
             self.Outputs.out_mine.send(tmp_table)
 

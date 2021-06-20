@@ -1,0 +1,5 @@
+Orange3
+Orange3-text
+Orange3-timeseries
+Orange3-Network
+janome

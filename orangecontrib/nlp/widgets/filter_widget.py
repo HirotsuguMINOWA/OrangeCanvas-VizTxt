@@ -29,7 +29,7 @@ def filter_regexp(in_corpus: Corpus, pattern: str) -> Corpus:
         raise Exception("文字の列がありません")
         return
     #
-    in_corpus=in_corpus.copy()
+    in_corpus = in_corpus.copy()
     del_candidates = []
     for i_r in range(in_corpus.metas.shape[0]):  ## Row
         for i_c in range(in_corpus.metas.shape[1]):  ## Col
@@ -43,14 +43,13 @@ def filter_regexp(in_corpus: Corpus, pattern: str) -> Corpus:
                 print(f"patn:{pattern},sent:{sent},i_r:{i_r}")
                 return None
 
-
         # 不要
         # if i_r == 2 or i_r == 11:
         #     print(f"row:{i_r} was res:{res}")
     # Delete rows AND create new Corpus
     if len(del_candidates) > 0:
         del_candidates.sort(reverse=True)
-        print(f"res_cand:{del_candidates}")
+        # print(f"res_cand:{del_candidates}")
         tmp_metas = in_corpus.metas
         tmp_X = in_corpus.X
         tmp_Y = in_corpus.Y
@@ -75,7 +74,7 @@ def filter_regexp(in_corpus: Corpus, pattern: str) -> Corpus:
 class FilterWidget(OWWidget):
     # Widget needs a name, or it is considered an abstract widget
     # and not shown in the menu.
-    name = "filter_widget"  # FIXME: 名前修正しよう
+    name = "Filter"  # FIXME: 名前修正しよう
     icon = "icons/mywidget.svg"  # FIXME: 要修正, 著作権問題が気になるため
     want_main_area = False
     key_input: str = '《.*》|［.*］|[「」、。]'  # lineEditと合わせて要修正

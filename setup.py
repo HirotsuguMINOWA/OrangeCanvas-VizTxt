@@ -41,6 +41,10 @@ INSTALL_REQUIRES = [
     'Orange3',
     'janome',
     # 'numpy',  # FIXME: 不要？
+    # 'orange3-timeseries',  # FIXME: 本来は不要、最新numpyのインスト用
+    # 'numpy',
+    # 'numpy',
+    # 'numpy-quaternion',
     'orange3-text',
     'python-Levenshtein'
 ]
@@ -56,7 +60,8 @@ ENTRY_POINTS = {
     # from welcome screen. Tutorials are saved Orange Workflows (.ows files).
     'orange.widgets.tutorials': (
         # Syntax: any_text = path.to.package.containing.tutorials
-        'exampletutorials = orangecontrib.nlp.tutorials',
+        # 'exampletutorials = orangecontrib.nlp.tutorials',
+        'nlptutorials = orangecontrib.nlp.tutorials',
     ),
 
     # Entry point used to specify packages containing widgets.
@@ -93,7 +98,7 @@ def include_documentation(local_dir, install_dir):
 
 
 if __name__ == '__main__':
-    include_documentation('doc/build/html', 'help/orange3-example')
+    include_documentation('doc/build/html', 'help/orange3-nlp')
     setup(
         name=NAME,
         version=VERSION,
