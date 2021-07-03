@@ -1,0 +1,1 @@
+gensim<4.0.0 # Causes AttributeError: 'dict' object has no attribute '__NUMPY_SETUP__'

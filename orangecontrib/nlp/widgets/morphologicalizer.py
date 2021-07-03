@@ -184,15 +184,19 @@ class POS(str, Enum):
     adverb = "形容詞"
 
 
+from .module.comp import comp
+
+
+# TODO: logger置き換えろ
 # FIXME: print(str(token).decode('utf8'))がwindowsには必要かも
-def morphological_analysis8(in_corpus: Corpus, contains: List[POS] = []) -> Corpus:
+def morphological_analysis8(in_corpus: Corpus, contains: List[List[str]] = []) -> Corpus:
     """
     pd.DFを用いて、src corpusへ連結する
+    :param in_corpus:
     :param contains:
-    :param pattern:
-    :param out:
     :return:
     """
+
     # print("[Debug] Domain:", in_corpus.domain)
     # print("Meta部のshape:", in_corpus.metas.shape)
     # print("Meta部の「最初のcell」[0,0]の抽出", in_corpus.metas[0, 0])
@@ -206,7 +210,8 @@ def morphological_analysis8(in_corpus: Corpus, contains: List[POS] = []) -> Corp
             print("[Debug] 文字列以外が渡された:", a_sent, "Type:", type(a_sent))
         # return [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech.split(',')[0] in contains) for c in a_sent]
         print("[Debug] Inputted: ", a_sent)
-        res = [(r.surface, r.part_of_speech) for r in t.tokenize(a_sent) if r.part_of_speech.split(',')[0] in contains]
+        # res = [(r.surface, r.part_of_speech) for r in t.tokenize(a_sent) if r.part_of_speech.split(',')[0] in comp(contains, r.part_of_speech.split(','))]
+        res = [(r.surface, r.part_of_speech) for r in t.tokenize(a_sent) if comp(contains, r.part_of_speech.split(','))]
         print("[Debug] Row:", res)
         return " ".join(r.surface for r in t.tokenize(a_sent) if r.part_of_speech.split(',')[0] in contains)
 
@@ -220,7 +225,9 @@ def morphological_analysis8(in_corpus: Corpus, contains: List[POS] = []) -> Corp
         if n_c == 1:
             """Usually, this scope will be performed"""
             # out.metas[i_r] = [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech in contains) for c in out.metas[i_r]]
-            out.metas[i_r][0] = parser(in_corpus.metas[i_r][0])
+            # TODO: Word(もとの言葉)を返しているが、GUIで選べれるように変更する事
+            res = [r.surface for r in t.tokenize(in_corpus.metas[i_r][0]) if comp(contains, r.part_of_speech.split(','))]
+            out.metas[i_r][0] = " ".join(res)
         else:
             for i_c in range(n_c):  ## Col
                 # in_corpus.metas[i_r, i_c] = [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech.split(',')[0] in contains) for c in in_corpus.metas[i_r, i_c]]
