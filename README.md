@@ -25,6 +25,12 @@
 1. Python>=3.7.
    - `datetime`にて`fromisoformat` method is available from py3.7.
 
+# How to install via https
+`pip install -e git+https://github.com/HirotsuguMINOWA/OC-NLP.git#egg=nlp4oc`
+
+# How to install via ssh
+`pip install -e git+ssh://git@github.com/HirotsuguMINOWA/OC-NLP.git#egg=nlp4oc`
+
 Orange3 Example Add-on
 ======================
 
