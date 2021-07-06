@@ -27,7 +27,7 @@ class MorphParser(OWWidget):
     want_main_area = False
     cm_key = ""  # CredentialManager("Twitter API Key")
     cm_secret = ""  # CredentialManager("Twitter API Secret")
-    extract_pos_str = '["名詞"]["名詞","サ変接続"]'
+    extract_pos_str = '["名詞"],["名詞","サ変接続"]'
     secret_input = ""
 
     def __init__(self):
