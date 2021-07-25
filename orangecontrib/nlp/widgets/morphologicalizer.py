@@ -6,177 +6,20 @@
 """
 # from strenum import StrEnum
 from enum import Enum
+from logging import getLogger
 # from datetime import datetime
 from pathlib import Path
-from typing import List
+from typing import List, TypeVar, Generic
 
+from Orange.data import Table
 from janome.tokenizer import Tokenizer
 from orangecontrib.text.corpus import Corpus
 
 t = Tokenizer()
 
+logger = getLogger(__file__)
 
-# def morphological_analysis(col_ja: Domain) -> Domain:
-#     name_col_out = "tokenized"
-#     n_row = len(col_ja)
-#     tmp_domain = Domain([ContinuousVariable.make(name_col_out)])
-#     ret = Table.from_domain(tmp_domain, n_rows=n_row)
-#     for i, row in enumerate(col_ja):
-#         # for token in t.tokenize(row):
-#         #     tmp_domain[i]=token
-#         tmp_domain[i] = " ".join([r.surface.decode('utf8') for r in t.tokenize(row)])  # Win用にutf8化している
-#     return tmp_domain
-# 
-# 
-# def morphological_analysis2(col_ja: list) -> Tuple[list, Domain]:
-#     name_col_out = "tokenized"
-#     # n_row = len(col_ja)
-#     tmp_domain = Domain([StringVariable.make(name_col_out)])
-#     # ret = Table.from_domain(tmp_domain, n_rows=n_row)
-#     ret = list()
-#     for i, row in enumerate(col_ja):
-#         # for token in t.tokenize(row):
-#         #     tmp_domain[i]=token
-#         # ret.append(" ".join([r.surface.decode('utf8') for r in t.tokenize(row)]))  # Win用にutf8化している
-#         ret.append(" ".join([r.surface for r in t.tokenize(row)]))  # Win用にutf8化している
-#     return ret, tmp_domain
-# 
-# 
-# def morphological_analysis3(col_ja: list) -> Table:
-#     """1つめのrowの解析しかできず"""
-#     name_col_out = "tokenized"
-#     n_row = len(col_ja)
-#     tmp_domain = Domain([], metas=[StringVariable(name_col_out)])
-#     # ret = Table.from_domain(tmp_domain, n_rows=n_row)
-#     ret = list()
-#     for i, row in enumerate(col_ja):
-#         # for token in t.tokenize(row):
-#         #     tmp_domain[i]=token
-#         # ret.append(" ".join([r.surface.decode('utf8') for r in t.tokenize(row)]))  # Win用にutf8化している
-#         # ret.append(" ".join([r.surface for r in t.tokenize(row)]))  # Win用にutf8化している
-#         # ret[i] = " ".join([r.surface for r in t.tokenize(row)])  # Win用にutf8化している
-#         ret.append(" ".join([r.surface for r in t.tokenize(row)]))
-#     data = Table.from_list(tmp_domain, [
-#         ret
-#     ])
-#     return data, tmp_domain
-# 
-# 
-# def morphological_analysis4(col_ja: Corpus) -> Table:
-#     """
-#     - Tableに結果格納して、上位の関数で元のCorpusへマージする？
-#     - このメソッドのver.5で既に各cellの解析ができている。そちらを参照し、こちらは見る必要ない。
-#     :param col_ja:
-#     :return:
-#     """
-#     name_col_out = "tokenized"
-#     n_row = len(col_ja)
-#     tmp_domain = Domain([], metas=[StringVariable(name_col_out)])
-#     tmp_table = Table.from_domain(tmp_domain, n_rows=n_row)
-#     ret = list()
-#     n_str_len = col_ja.metas.shape[1]  # 文字列colの数
-#     for i in range(n_str_len):
-#         ret.append(list())
-#     for i_r, row in enumerate(col_ja):  # type: int,RowInstance
-#         for i_c, cell in enumerate(row.list):  # type: int,str
-#             if isinstance(cell, str):
-#                 for token in t.tokenize(cell):
-#                     ret[i_c][i_r].append(token)
-#                 # ret.append(" ".join([r.surface.decode('utf8') for r in t.tokenize(row)]))  # Win用にutf8化している
-#                 # ret.append(" ".join([r.surface for r in t.tokenize(row)]))  # Win用にutf8化している
-#                 # ret[i] = " ".join([r.surface for r in t.tokenize(row)])  # Win用にutf8化している
-#                 ret.append([" ".join([r.surface for r in t.tokenize(row)])])
-#                 tmp_table[i_r] = " ".join([r.surface for r in t.tokenize(row)])
-#     t2 = Table.from_table(domain=tmp_domain, source=tmp_table)
-#     t3 = Table.from_list(domain=tmp_domain, rows=ret)
-#     Corpus.add
-#     return t3, tmp_domain
-# 
-# 
-# def morphological_analysis5(col_ja: Corpus) -> Corpus:
-#     """
-#     - 参考に残す。
-#     - Copus内のTableに該当する箇所へ、形態素解析の結果を格納しようと試みるコード
-#     - tryフォルダの中のサンプルを使え、そちらの方がシンプルで理解しやすい
-#     :param col_ja:
-#     :return:
-#     """
-#     name_col_out = "tokenized"
-#     n_row = len(col_ja)
-#     tmp_domain = Domain([], metas=[[StringVariable(name_col_out)] * len(col_ja.metas)])
-#     tmp_table = Table.from_domain(tmp_domain, n_rows=n_row)
-#     ret = list()
-#     for i_r, row in enumerate(col_ja.metas):
-#         for i_c, col in enumerate(row):
-#             if i_c == 0:
-#                 ret.append([None] * len(col))
-#             # for token in t.tokenize(row):
-#             #     tmp_domain[i]=token
-#             # ret.append(" ".join([r.surface.decode('utf8') for r in t.tokenize(row)]))  # Win用にutf8化している
-#             # ret.append(" ".join([r.surface for r in t.tokenize(row)]))  # Win用にutf8化している
-#             # ret[i] = " ".join([r.surface for r in t.tokenize(row)])  # Win用にutf8化している
-#             # ret.append([" ".join([r.surface for r in t.tokenize(row)])])
-#             # ret.append(" ".join([r.surface for r in t.tokenize(col)]))
-#             ret[i_c + 1][i_r] = " ".join(r.surface for r in t.tokenize(col))
-#             # tmp_table[i_c, i_r] = " ".join([r.surface for r in t.tokenize(row)])
-#     return col_ja
-# 
-# 
-# def morphological_analysis6(col_ja: Corpus) -> Table:
-#     """
-#     【廃棄】 gensimのDictionaryを使って、Corpusへのマージを試みた結果。
-#     - tryフォルダにsimpleなコードが入っているのでそちらを参考にすべき
-#     - .extend_corpus(document)を使って、拡張を試みようとしている。
-# 
-#     :param col_ja:
-#     :return:
-#     """
-#     name_col_out = "tokenized"
-#     for i, col in enumerate(range(2)):
-#         # col_ja = col_ja..add_column(variable=StringVariable(name_col_out + str(i)), data=["a", "a", "a", "a"], to_metas=True)
-#         # col_ja = col_ja.extend_corpus(metadata=["a", "a", "a", "a"], Y=StringVariable(name_col_out + str(i))) # ValueError: Extending corpus only works when X is emptywhile the shape of X is (4, 1)
-#         # col_ja = col_ja.set_text_features(["a", "a", "a", "a"])
-#         # col_ja=col_ja.extend_attributes(X=[["a"], ["a"], ["a"], ["a"]],feature_names=[StringVariable(name_col_out + str(i))])
-#         col_ja = col_ja.extend_attributes(X=[["a"], ["a"], ["a"], ["a"]], feature_names=[name_col_out + str(i)])
-#         from gensim import matutils
-#         words = ['アナタ', 'ブラウザ', 'ブック', 'マーク', 'ブック', 'マーク', '管理', 'ライフ', 'リスト', 'オススメ', '最近', 'ネット', 'サーフィン', '際', '利用', 'の', 'ライフ', 'リスト', 'サイト', 'ライフ', 'リスト',
-#                  'ひとこと', '自分', '専用', 'ブックマークサイト', 'ブラウザ', 'スタート', 'ページ', 'ブラウザ', 'ブック', 'マーク', '管理', '不要', '便利', 'サイト', 'の']
-#         dictionary = Corpus.from_list()
-#         dictionary.filter_extremes(no_below=20, no_above=0.3)
-#         tmp = dictionary.doc2bow(words)
-#         dense = list(matutils.corpus2dense([tmp], num_terms=len(dictionary)).T[0])
-#         col_ja = col_ja.extend_attributes(X=dense, feature_names=[name_col_out + str(i), "d"])
-#         # col_ja = col_ja.extend_attributes(X=[["a"], ["a"], ["a"], ["a"]], feature_names=[name_col_out + str(i)])
-#         # t2 = Table.from_table(domain=tmp_domain, source=tmp_table)
-#         # t3 = Table.from_list(domain=tmp_domain, rows=ret)
-#         # return t3, tmp_domain
-#         col_ja.metas
-# 
-#     return col_ja
-# 
-# 
-# def morphological_analysis7(col_ja: Corpus, tail: str = "_MA") -> Corpus:
-#     """
-#     pd.DFを用いて、src corpusへ連結する
-#     :param col_ja:
-#     :param tail: 形態素解析(Morphological Analysis)の接尾語
-#     :return:
-#     """
-#     #
-#     # Enter analysis result
-#     ret = list()
-#     for i_r, row in enumerate(col_ja.metas):
-#         #     ret_s = list()
-#         #     for i_c, col in enumerate(row):
-#         #         ret_s.append(" ".join(r.surface for r in t.tokenize(col)))
-#         ret.append([" ".join(r.surface for r in t.tokenize(c)) for c in row])
-#         # ret.append(ret_s)
-#     # ret = [" ".join(r.surface for r in t.tokenize(c)) for c in row for row in col_ja.metas]
-#     ret2 = [*zip(*ret)]  # 行列を転置
-#     res3 = col_ja
-#     for n, col in zip(col_ja.domain.metas, ret2):
-#         res3 = res3.add_column(StringVariable(name=f"{n}{tail}"), data=col, to_metas=None)
-#     return res3
+
 class POS(str, Enum):
     # class POS(StrEnum):
     noun = "名詞"
@@ -186,26 +29,29 @@ class POS(str, Enum):
 
 from .module.comp import comp
 
+T = TypeVar('T', Corpus, Table)
+
 
 # TODO: logger置き換えろ
 # FIXME: print(str(token).decode('utf8'))がwindowsには必要かも
-def morphological_analysis8(in_corpus: Corpus, contains: List[List[str]] = []) -> Corpus:
+def morphological_analysis8(a_corpus: Generic[T], contains: List[List[str]] = []) -> T:
     """
     pd.DFを用いて、src corpusへ連結する
-    :param in_corpus:
+    :param a_corpus:
     :param contains:
     :return:
     """
-
-    # print("[Debug] Domain:", in_corpus.domain)
-    # print("Meta部のshape:", in_corpus.metas.shape)
-    # print("Meta部の「最初のcell」[0,0]の抽出", in_corpus.metas[0, 0])
-    out = in_corpus.copy()
+    out = a_corpus.copy()
     if len(out.metas) == 0:
         raise Exception("文字の列がありません")
         return
 
-    def parser(a_sent: str):
+    def parser(a_sent: str) -> str:
+        """
+        一文を形態素解析した結果(形態素を半角空白で結ぶ)を返す
+        :param a_sent:
+        :return:
+        """
         if not isinstance(a_sent, str):
             print("[Debug] 文字列以外が渡された:", a_sent, "Type:", type(a_sent))
         # return [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech.split(',')[0] in contains) for c in a_sent]
@@ -213,138 +59,31 @@ def morphological_analysis8(in_corpus: Corpus, contains: List[List[str]] = []) -
         # res = [(r.surface, r.part_of_speech) for r in t.tokenize(a_sent) if r.part_of_speech.split(',')[0] in comp(contains, r.part_of_speech.split(','))]
         res = [(r.surface, r.part_of_speech) for r in t.tokenize(a_sent) if comp(contains, r.part_of_speech.split(','))]
         print("[Debug] Row:", res)
-        return " ".join(r.surface for r in t.tokenize(a_sent) if r.part_of_speech.split(',')[0] in contains)
+        res2 = " ".join(r.surface for r in t.tokenize(a_sent) if comp(contains, r.part_of_speech.split(',')))
+        print("[Debug] Res2:", res2)
+        return res2
 
-    print("[Debug] shape:", in_corpus.metas.shape)
-    print("[Debug] meta:", in_corpus.metas)
+    print("[Debug] shape:", a_corpus.metas.shape)
+    print("[Debug] meta:", a_corpus.metas)
 
-    for i_r in range(in_corpus.metas.shape[0]):  ## Row
-        n_c = in_corpus.metas.shape[1]  ## Col
+    for i_r in range(a_corpus.metas.shape[0]):  ## Row
+        n_c = a_corpus.metas.shape[1]  ## Col
         # print(f"[Debug] n_c:{n_c}")
 
         if n_c == 1:
             """Usually, this scope will be performed"""
             # out.metas[i_r] = [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech in contains) for c in out.metas[i_r]]
             # TODO: Word(もとの言葉)を返しているが、GUIで選べれるように変更する事
-            res = [r.surface for r in t.tokenize(in_corpus.metas[i_r][0]) if comp(contains, r.part_of_speech.split(','))]
+            res = [r.surface for r in t.tokenize(a_corpus.metas[i_r][0]) if comp(contains, r.part_of_speech.split(','))]
             out.metas[i_r][0] = " ".join(res)
         else:
             for i_c in range(n_c):  ## Col
                 # in_corpus.metas[i_r, i_c] = [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech.split(',')[0] in contains) for c in in_corpus.metas[i_r, i_c]]
-                out.metas[i_r, i_c] = parser(in_corpus.metas[i_r, i_c])
+                out.metas[i_r, i_c] = parser(a_corpus.metas[i_r, i_c])
+
     #
     # print("[Info] Result in main:\n", ret_corpus)
     return out
-
-
-# ##################### 以下は、不要
-# class Unit(Enum):
-#     second = auto()
-#     minute = auto()
-#     hour = auto()
-#     day = auto()
-#
-#
-# def get_elapsed_time(dt_in_1col: Table, unit: Unit = Unit.second) -> Tuple[int]:
-#     """
-#     datetime型値群から数値へ変換する
-#     :param dt_in_1col: 経過時間を求めたい入力となるdatetime型の値群
-#     :param unit: 変換単位. Unit.secondなら秒単位で経過時間を返却する
-#     :return:
-#     """
-#     """
-#     https://orange3.readthedocs.io/projects/orange-visual-programming/en/latest/loading-your-data/index.html
-#     Datetime Format¶
-#     To avoid ambiguity, Orange supports date and/or time formatted in one of the ISO 8601 formats. For example, the following values are all valid:
-#
-#     2016
-#     2016-12-27
-#     2016-12-27 14:20:51
-#     16:20
-#     """
-#     # if len(dt_in_1col.domain) != 1 or dt_in_1col.domain[0].name != "DateTime":
-#     if len(dt_in_1col.domain) != 1 or not dt_in_1col.domain[0].is_time:
-#         raise Exception("[Bug] Please fix given value:(1)type Table,(2)len(column)==1,(3)Its domain is DateTime,(4) Input data was DateTime(Not Date or Time)")
-#     # Prepare storage to return
-#     col_out = "ElapseTime"
-#     n_row = len(dt_in_1col)
-#     tmp_domain = Domain([ContinuousVariable.make(col_out)])
-#     ret = Table.from_domain(tmp_domain, n_rows=n_row)
-#     # TODO: 1列Table作れ、それに経過時間を保存、returnしろ。
-#     # FIXME: 特定セル(1行1列)の欠損値の処理
-#     # for i, dat in enumerate(dt_in_1col[:, 0]):
-#
-#     # for i, dat in enumerate(dt_in_1col):
-#     #     # ret[i, 0] = dt.datetime.fromisoformat(str(dat[0]))  # convert type Value to datetime. py>=3.7.
-#     #     ret[i, 0] = ia
-#     elapsed_time = None
-#     for i, dat in enumerate(dt_in_1col):
-#         dt_: dt.datetime = dt.datetime.fromisoformat(str(dat[0]))  # convert type Value to datetime. py>=3.7.
-#         # t: time = list({row[1].value})[0]
-#         if i == 0:
-#             """基準の日付を作成"""
-#             # dt_criteria = datetime.combine(dt.date(), t)
-#             dt_criteria = dt_
-#             # elapsed_time = dt_criteria
-#             ret[i, 0] = 0
-#             # ws.cell(i + start_row, out_col + 1).value = 0
-#         else:
-#             """上記以外の差分日を求める"""
-#             # dt = datetime.combine(dt.date(), t)
-#             diff: dt.timedelta = dt_ - dt_criteria
-#             # res = datetime.strptime(f"{date_tmp.year}", "%Y/%m/%d %H:%M:%S")
-#             # ws.cell(i + start_row, out_col).value = dt  # date+timeの書き込み
-#             # ws.cell(i + start_row, out_col + 1).value = diff.total_seconds()  # 経過時間の書き込み
-#             ret[i, 0] = diff.total_seconds()  # 経過時間の書き込み
-#             if diff.total_seconds() == 0:
-#                 raise Exception("差が0になるエラー")
-#     return ret
-#
-#
-# def detect_1st_datetime_col(source: Table) -> int:
-#     """ Return index of first(most left) column(field) of datetime type
-#     - Return minus value if not found a datetime type column.
-#     :param source:
-#     """
-#     for i, a_domain in enumerate(source.domain):
-#         # if a_domain.name == "DateTime":
-#         if a_domain.is_time:  # Check whether var is TimeVar or not.
-#             # col_idx_ = i
-#             print(f"[Debug] DateTime col found at No.{i + 1}(idx:{i})")
-#             return i
-#     else:
-#         return -100
-
-
-# def convert(source: Corpus, col_idx: Optional[int] = None) -> Optional[Table]:
-#     """
-#     - 日付(Data, Time, DateTime)を経過時間(日,時間、分、秒)などに直す関数
-#     :param source: 変換したいデータが入ったTableクラスのデータ
-#     :param col_idx: 変換したい日付データが入ったsourceの列番号。Noneなら最も若い番号のDateTimeを変換する
-#     :return:
-#     """
-#     if len(source.metas) == 0:
-#         raise Exception("文字の列がありません")
-#         return
-#     # for var_cls in source.text_features:
-#     # # Detect datetime col.
-#     # if col_idx is None:
-#     #     target: int = detect_1st_datetime_col(source)
-#     # Get output table
-#     # ret = None
-#     # if col_idx >= 0:
-#     #     # ret = Table.from_domain(morphological_analysis(source[:, col_idx]))
-#     #     # Tableは不可。内部で数値に変換してしまう？
-#     #     # result, tmp_domain = morphological_analysis2(source.documents)
-#     #     # ret = Corpus.from_documents(documents=result, name="morphologies", attributes=tmp_domain)
-#     #     tmp_table, tmp_domain = morphological_analysis5(source)
-#     #     ret = Corpus.from_table(domain=tmp_domain, source=tmp_table)
-#     # return ret
-#     # t_convd, tmp_domain = morphological_analysis5(source)
-#     # ret = Corpus.from_table(domain=tmp_domain, source=t_convd)
-#     # ret = Corpus.add_column()
-#     # return morphological_analysis5(source)
-#     return morphological_analysis8(source)
 
 
 if __name__ == '__main__':
@@ -359,7 +98,8 @@ if __name__ == '__main__':
         print("[Debug] Domain:", in_corpus.domain)
         # >> [Date, Time, DateTime, Value1, Class]と表示されます。
         # TODO: 1列目は年月日、2列目は時間のみ、3列目は1列目+2列目の各行の合算です。これを読み込み、変換する事
-        result = convert(source=in_corpus)  # FIXME: 手動で変換しているので直すべし
+        # result = convert(source=in_corpus)  # FIXME: 手動で変換しているので直すべし
+        result = morphological_analysis8(source=in_corpus)  # FIXME: 手動で変換しているので直すべし
         if result is None:
             raise Exception("result is None")
         print("[Info] Result in main:\n", result)

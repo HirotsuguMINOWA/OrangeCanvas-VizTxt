@@ -18,6 +18,7 @@ try:
 except:
     from orangecontrib.nlp.widgets.morphologicalizer import morphological_analysis8, POS
 
+
 # TODO: logger置き換えろ
 class MorphParser(OWWidget):
     # Widget needs a name, or it is considered an abstract widget
@@ -27,7 +28,7 @@ class MorphParser(OWWidget):
     want_main_area = False
     cm_key = ""  # CredentialManager("Twitter API Key")
     cm_secret = ""  # CredentialManager("Twitter API Secret")
-    extract_pos_str = '["名詞"],["名詞","サ変接続"]'
+    extract_pos_str = '["名詞"],["形容詞"]'
     secret_input = ""
 
     def __init__(self):
@@ -105,11 +106,12 @@ class MorphParser(OWWidget):
         """
         get Inputs
         """
-        input_data = Input("Data", Corpus, default=True)
+        # input_data = Input("Data", Corpus, default=True)
+        input_data = Input("Data", Table, default=True)
 
     class Outputs:
-        # out_mine = Output("Data", Table)
-        out_mine = Output("Data", Corpus)
+        out_mine = Output("Data", Table)
+        # out_mine = Output("Data", Corpus)
 
     @Inputs.input_data
     def set_A(self, a):
@@ -162,6 +164,7 @@ class MorphParser(OWWidget):
             #     print(f"res:{self.A[i, names[0].name]}")
             #     tmp_table[i, col_out] = self.A[i, names[0].name] + self.A[i, names[1].name]
             extract_pos = eval(self.extract_pos_str)
+            print("extract_pos:", extract_pos)
             # FIXME: DateTime型がなければエラーとなるかも、要修正。
             if len(self.A) == 0:
                 raise Exception("文字の列がありません")
