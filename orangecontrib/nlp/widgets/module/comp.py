@@ -2,21 +2,25 @@ import itertools
 import time
 from typing import List
 
+
 # TODO: logger置き換えろ
-def comp(l_user: List[List[str]], gotten_pos: List[str]):
+def comp(l_user: List[List[str]], target_pos: List[str]):
     """
 
     :param l_user: ユーザが指定した抽出したいPOSが記載されたlist
-    :param gotten_pos:
+    :param target_pos:
     :return: ユーザ指定したPOSリストに一致した場合Trueを返す
     """
     for l_usr1 in l_user:
-        n = len(l_usr1)
-        res = [i == j for i, j in zip(l_usr1, gotten_pos)]  # 遅い、しかし、同一要素番号を比較するのはこれしか思いつかない
-        # print("res:", res)
-        # res2 = all(res[:n])
-        if all(res[:n]):
-            return True
+        # n = len(l_usr1)
+        if len(l_usr1) <= len(target_pos):
+            res = [i == j for i, j in zip(l_usr1, target_pos)]  # 不可、リスト長の短い方に合わせてしまう。遅い、しかし、同一要素番号を比較するのはこれしか思いつかない
+            # res = [True for i, e in enumerate(l_usr1) if target_pos[i] == e]
+            # print("res:", res)
+            # res2 = all(res[:n])
+            # if all(res[:n]):
+            if all(res):
+                return True
     return False
 
 
