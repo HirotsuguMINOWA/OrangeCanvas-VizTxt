@@ -1,5 +1,5 @@
-OC-NLP : NLP addon for Orange3
-==============================
+OC-NLP : NLP addon for Orange Canvas3
+=====================================
 
 ![screenshot](https://github.com/HirotsuguMINOWA/OC-NLP/blob/dev/doc/widgets/fig/workflow1.png)
 
@@ -8,7 +8,8 @@ OC-NLP : NLP addon for Orange3
    - This is depended on license of Orange Canvas which is under GPL-3.0.
 
 # Abstract
-Orange Canvasは日本語形態素解析に対応してません。Orange Canvasにより形態素解析できれば、[Janome](https://mocobeta.github.io/janome/)を利用した形態素
+Orange Canvasは日本語形態素解析に対応してません。Orange Canvasにより形態素解析できれば、[Janome](https://mocobeta.github.io/janome/)を利用させて頂き形態素解析できるようにしました。
+これでノンプログラミングにおけるテキスト解析の幅が広がる事を期待しております。
 
 # Caution
 1. ~~使用するPythonバージョン<3.9でなければなりません。~~

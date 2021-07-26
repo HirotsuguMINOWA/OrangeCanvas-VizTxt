@@ -1,0 +1,2 @@
+include orangecontrib/nlp/tutorials/*.ows
+include orangecontrib/nlp/widgets/icons/*
