@@ -4,16 +4,16 @@
 - fileを別に分ける理由: こちらはOrangeCanvasに組み込む必要はありません。PyCharmのrunコマンドで実行され、コードを確認できます。OrangeCanvasに組み込まない事で開発効率を上げています。
 
 """
-# from strenum import StrEnum
 from enum import Enum
 from logging import getLogger
-# from datetime import datetime
 from pathlib import Path
 from typing import List, TypeVar, Generic
 
 from Orange.data import Table
 from janome.tokenizer import Tokenizer
 from orangecontrib.text.corpus import Corpus
+
+from .module.comp import comp
 
 t = Tokenizer()
 
@@ -27,12 +27,9 @@ class POS(str, Enum):
     adverb = "形容詞"
 
 
-from .module.comp import comp
-
 T = TypeVar('T', Corpus, Table)
 
 
-# TODO: logger置き換えろ
 # FIXME: print(str(token).decode('utf8'))がwindowsには必要かも
 def morphological_analysis8(a_corpus: Generic[T], contains: List[List[str]] = []) -> T:
     """
@@ -57,8 +54,8 @@ def morphological_analysis8(a_corpus: Generic[T], contains: List[List[str]] = []
         # return [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech.split(',')[0] in contains) for c in a_sent]
         print("[Debug] Inputted: ", a_sent)
         # res = [(r.surface, r.part_of_speech) for r in t.tokenize(a_sent) if r.part_of_speech.split(',')[0] in comp(contains, r.part_of_speech.split(','))]
-        res = [(r.surface, r.part_of_speech) for r in t.tokenize(a_sent) if comp(contains, r.part_of_speech.split(','))]
-        print("[Debug] Row:", res)
+        # res = [(r.surface, r.part_of_speech) for r in t.tokenize(a_sent) if comp(contains, r.part_of_speech.split(','))]
+        # print("[Debug] Row:", res)
         res2 = " ".join(r.surface for r in t.tokenize(a_sent) if comp(contains, r.part_of_speech.split(',')))
         print("[Debug] Res2:", res2)
         return res2
@@ -68,21 +65,16 @@ def morphological_analysis8(a_corpus: Generic[T], contains: List[List[str]] = []
 
     for i_r in range(a_corpus.metas.shape[0]):  ## Row
         n_c = a_corpus.metas.shape[1]  ## Col
-        # print(f"[Debug] n_c:{n_c}")
 
         if n_c == 1:
             """Usually, this scope will be performed"""
             # out.metas[i_r] = [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech in contains) for c in out.metas[i_r]]
-            # TODO: Word(もとの言葉)を返しているが、GUIで選べれるように変更する事
             res = [r.surface for r in t.tokenize(a_corpus.metas[i_r][0]) if comp(contains, r.part_of_speech.split(','))]
             out.metas[i_r][0] = " ".join(res)
         else:
             for i_c in range(n_c):  ## Col
                 # in_corpus.metas[i_r, i_c] = [" ".join(r.surface for r in t.tokenize(c) if r.part_of_speech.split(',')[0] in contains) for c in in_corpus.metas[i_r, i_c]]
                 out.metas[i_r, i_c] = parser(a_corpus.metas[i_r, i_c])
-
-    #
-    # print("[Info] Result in main:\n", ret_corpus)
     return out
 
 
