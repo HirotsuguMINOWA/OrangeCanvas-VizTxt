@@ -50,9 +50,9 @@ source_parsers = {".md": "recommonmark.parser.CommonMarkParser"}
 master_doc = 'index'
 
 # General information about the project.
-project = 'Orange3 Example Add-on'
-copyright = '2015, Biolab'
-author = 'Biolab'
+project = 'Orange3-NLP'
+copyright = '2021-2021, MINOWA, Hirotsugu'
+author = 'MINOWA, Hirotsugu'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -262,8 +262,6 @@ man_pages = [
 
 # If true, show URL addresses after external links.
 #man_show_urls = False
-
-
 # -- Options for Texinfo output -------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
