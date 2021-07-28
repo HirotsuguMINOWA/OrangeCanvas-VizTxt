@@ -46,7 +46,7 @@ INSTALL_REQUIRES = [
     # 'numpy',
     # 'numpy-quaternion',
     'orange3-text',
-    'python-Levenshtein'
+    #'python-Levenshtein'
 ]
 
 ENTRY_POINTS = {
