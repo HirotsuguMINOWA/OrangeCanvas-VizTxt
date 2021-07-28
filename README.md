@@ -30,10 +30,10 @@ Installation
 ------------
 
 How to install via https
-   `pip install -e git+https://github.com/HirotsuguMINOWA/OC-NLP@master#egg=nlp4oc`
+   `python -m pip install -e git+https://github.com/HirotsuguMINOWA/OC-NLP@master#egg=nlp4oc`
 
 How to install via ssh
-   `pip install -e git+ssh://git@github.com/HirotsuguMINOWA/OC-NLP@master#egg=nlp4oc`
+   `python -m pip install -e git+ssh://git@github.com/HirotsuguMINOWA/OC-NLP@master#egg=nlp4oc`
 
 
 To install the add-on, run
