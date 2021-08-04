@@ -10,7 +10,7 @@ OC-NLP : NLP addon for Orange Canvas3
 夏目漱石「こころ」の解析結果
 ||本AddOn|KHCoder|
 |--|--|--|
-|WordCloud|![OC-ExtractWord](https://github.com/HirotsuguMINOWA/OC-NLP/blob/dev/doc/widgets/fig/oc_ext_word1.png?raw=true)|![KHCoder-EW](https://github.com/HirotsuguMINOWA/OC-NLP/blob/dev/doc/widgets/fig/kh_net1.png?raw=true)|
+|WordCloud|![OC-ExtractWord](https://github.com/HirotsuguMINOWA/OC-NLP/blob/dev/doc/widgets/fig/oc_ext_word1.png?raw=true)|![KHCoder-EW](https://github.com/HirotsuguMINOWA/OC-NLP/blob/dev/doc/widgets/fig/kh_ext_word3.png?raw=true)|
 |共起ネットワーク|![OC-Net](https://github.com/HirotsuguMINOWA/OC-NLP/blob/dev/doc/widgets/fig/oc_net2.png?raw=true)|![KH-Net](https://github.com/HirotsuguMINOWA/OC-NLP/blob/dev/doc/widgets/fig/kh_net1.png?raw=true)|
 
 # License
