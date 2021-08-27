@@ -13,7 +13,7 @@ else:
 
 NAME = "NLP4OC"
 
-VERSION = "0.0.1"
+VERSION = "0.0.3"
 
 DESCRIPTION = "Natural Language Processor on Orange Canvas"
 LONG_DESCRIPTION = open(path.join(path.dirname(__file__), 'README.md'), encoding=enc).read()
@@ -45,8 +45,9 @@ INSTALL_REQUIRES = [
     # 'numpy',
     # 'numpy',
     # 'numpy-quaternion',
+    'loguru',
     'orange3-text',
-    #'python-Levenshtein'
+    # 'python-Levenshtein'
 ]
 
 ENTRY_POINTS = {
