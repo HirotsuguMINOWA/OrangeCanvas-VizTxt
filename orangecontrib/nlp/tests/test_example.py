@@ -1,14 +1,15 @@
 import unittest
 
-from Orange.data import Domain, StringVariable, ContinuousVariable
-from Orange.widgets.tests.base import WidgetTest
-from orangecontrib.example.widgets.mywidget import MyWidget
+from Orange.data import Domain, StringVariable, ContinuousVariable, Table
+from loguru import logger
 from orangecontrib.text import Corpus
 
 from orangecontrib.nlp.widgets.module.comp import comp
 # from ..widgets.module.comp import comp
 from orangecontrib.nlp.widgets.morphologicalizer import morphological_analysis8
 
+
+# from Orange.widgets.tests.base import WidgetTest
 
 class ExampleTests(unittest.TestCase):
     def setUp(self):
@@ -57,10 +58,15 @@ class ExampleTests(unittest.TestCase):
         for x, y in zip(res.metas, [[''], ['の']]):
             self.assertEqual(x, y)
 
-
-class TestMyWidget(WidgetTest):
-    def setUp(self):
-        self.widget = self.create_widget(MyWidget)
-
-    def test_addition(self):
-        self.assertEqual(1 + 1, 2)
+    def test_morph_parse_from_table(self):
+        logger.info("Test morphological parse to data stored into Table class")
+        in_table = Table.from_list(
+            domain=Domain(attributes=[ContinuousVariable('No')], metas=[StringVariable.make(name='test_col')]),
+            rows=[[1, "太郎と花子は学校へ行った"], [3, "すもももももももものうち"]])
+        print("src:", in_table)
+        #
+        # Apply
+        res = morphological_analysis8(in_table, contains=self.general_rule[0])
+        print("res:", res.metas)
+        for x, y in zip(res.metas, [['太郎 花子 学校'], ['すもも もも もも うち']]):
+            self.assertEqual(x, y)
