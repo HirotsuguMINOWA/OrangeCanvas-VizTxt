@@ -8,6 +8,7 @@ from Orange.data import Table
 from Orange.widgets.utils.signals import Input, Output
 from Orange.widgets.widget import OWWidget
 from orangecontrib.text import Corpus
+from loguru import logger
 
 try:
     from orangewidget import gui
@@ -23,13 +24,15 @@ def filter_regexp(in_corpus: Corpus, pattern: str) -> Corpus:
     :return:
     """
     if len(in_corpus.metas) == 0:
-        raise Exception("文字の列がありません")
+        emsg="文字の列がありません"
+        logger.error(emsg)
+        raise Exception(emsg)
         return
     #
     in_corpus = in_corpus.copy()
     del_candidates = []
-    for i_r in range(in_corpus.metas.shape[0]):  ## Row
-        for i_c in range(in_corpus.metas.shape[1]):  ## Col
+    for i_r in range(in_corpus.metas.shape[0]):  # Row
+        for i_c in range(in_corpus.metas.shape[1]):  # Col
             try:
                 sent = in_corpus.metas[i_r, i_c]
                 res = re.sub(pattern, "", sent)
@@ -37,7 +40,7 @@ def filter_regexp(in_corpus: Corpus, pattern: str) -> Corpus:
                     del_candidates.append(i_r)
                 in_corpus.metas[i_r, i_c] = res
             except Exception as e:
-                print(f"patn:{pattern},sent:{sent},i_r:{i_r}")
+                logger.error(f"path:{pattern}, sent:{sent}, i_r:{i_r}")
                 return None
 
         # 不要
