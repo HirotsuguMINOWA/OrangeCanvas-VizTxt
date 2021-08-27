@@ -3,8 +3,7 @@ import time
 from typing import List
 
 
-# TODO: logger置き換えろ
-def comp(l_user: List[List[str]], target_pos: List[str]):
+def comp(l_user: List[List[str]], target_pos: List[str]) -> bool:
     """
 
     :param l_user: ユーザが指定した抽出したいPOSが記載されたlist
@@ -25,33 +24,19 @@ def comp(l_user: List[List[str]], target_pos: List[str]):
 
 
 if __name__ == '__main__':
+    # TODO: Move to Unit Test??
+    """Below is trial. If you check validation, make sure 'tests' dir for unit test"""
     list_1 = [1, 5, 4]
     # list_2 = [2,3,4]
     list_2 = [1, 4]
 
     start = time.perf_counter()
     print("comp1:", comp([[1, 3], [2, 1], [1, 3]], list_1))
-    print(time.perf_counter() - start)
+    print(f"End Time: {time.perf_counter() - start}")
     #
     # using list comprehensions
     #
     start = time.perf_counter()
     comparisons = [a == b for (a, b) in itertools.product(list_1, list_2)]  # 早い
-    print(time.perf_counter() - start)
+    print(f"End Time: {time.perf_counter() - start}")
     print("comparisons:", comparisons)
-    # sums = [a + b for (a, b) in itertools.product(list_1, list_2)]
-    # print("sum:", sums)
-    # using map and lambda
-    # comparisons = map(lambda (a, b): a == b, itertools.product(list_1, list_2))
-    # sums = map(lambda (a, b): a + b, itertools.product(list_1, list_2))
-
-    # print(frozenset(list_1).intersection(list_2))
-    #
-    #
-    # def compare_bitwise(x, y):
-    #     set_x = frozenset(x)
-    #     set_y = frozenset(y)
-    #     return set_x & set_y
-    #
-    #
-    # print(compare_bitwise(list_1, list_2))
